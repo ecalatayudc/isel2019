@@ -63,7 +63,7 @@ static void
 alarm (void* ignore)
 {
     fsm_t* alarm_fsm = fsm_new_alarm (&valid_code, GPIO_PIR, GPIO_ALARM);
-    portTickType period =  100 /portTICK_RATE_MS;
+    portTickType period =  250 /portTICK_RATE_MS;
     portTickType last = xTaskGetTickCount();
     while (1) {
    	fsm_fire(alarm_fsm);
@@ -74,7 +74,7 @@ static void
 code (void* ignore)
 {
     fsm_t* code_fsm = fsm_new_code (&valid_code, GPIO_BUTTON1);
-    portTickType period =  250 /portTICK_RATE_MS;
+    portTickType period =  100 /portTICK_RATE_MS;
     portTickType last = xTaskGetTickCount();
     while (1) {
    	fsm_fire(code_fsm);
