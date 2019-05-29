@@ -65,10 +65,10 @@ alarm (void* ignore)
     fsm_t* code_fsm = fsm_new_code (&valid_code, GPIO_BUTTON1);
     fsm_t* alarm_fsm = fsm_new_alarm (&valid_code, GPIO_PIR, GPIO_ALARM);
     fsm_t* light_fsm = fsm_new_light (&valid_code, GPIO_PIR, GPIO_ALARM,GPIO_BUTTON2);
-    portTickType period =  250 /portTICK_RATE_MS;
+    portTickType period =  600 /portTICK_RATE_MS;
     portTickType last = xTaskGetTickCount();
     while (1) {
-   	type Cycle is mod 4;
+   	type Cycle is mod 6;
 	Frame : Cycle := 0;
       		Wait_for_Interrupt;
 		case Frame is
@@ -77,6 +77,7 @@ alarm (void* ignore)
 		  when 2 => fsm_fire (code_fsm);fsm_fire (light_fsm); 
 		  when 3 => fsm_fire (code_fsm);
 		  when 4 => fsm_fire (code_fsm);fsm_fire (light_fsm);
+	    	  when 5 => fsm_fire (code_fsm);
 		end case;
       	Frame := Frame + 1;
     }
